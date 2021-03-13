@@ -1,5 +1,4 @@
 const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 const calendar = google.calendar("v3");
 /**
  * SCOPES allows you to set access levels; this is set to readonly for now because you don't have access rights to
@@ -52,7 +51,8 @@ module.exports.getAuthURL = async () => {
   return {
     statusCode: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
     },
     body: JSON.stringify({
       authUrl: authUrl,
@@ -74,7 +74,7 @@ module.exports.getAccessToken = async (event) => {
   
   // Return new promise in order to use the getToken method asynchronously and return the result to the users
   return new Promise((resolve, reject) => {
-    /** Exchange authorization code for access token with a callback after the excahgne, the callback in this case is an arrow function with the results as parameters: "err" and "token" */
+    /** Exchange authorization code for access token with a callback after the exchange, the callback in this case is an arrow function with the results as parameters: "err" and "token" */
 
     oAuth2Client.getToken(code, (err, token) => {
       if (err) {
@@ -88,7 +88,8 @@ module.exports.getAccessToken = async (event) => {
       return {
         statusCode: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
         },
         body: JSON.stringify(token),
       };
@@ -142,7 +143,8 @@ module.exports.getCalendarEvents = async (event) => {
       return {
         statusCode: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
         },
         body: JSON.stringify({
           events: results.data.items
