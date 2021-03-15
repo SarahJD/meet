@@ -94,7 +94,7 @@ So that I can see a list with a certain amount of events
 #### SCENARIO 1: WHEN USER HASN'T SPECIFIED A NUMBER, 32 IS THE DEFAULT NUMBER
 
 Given the user hasn’t specified an event number  
-When the user searches for events a a list is shown  
+When the user searches for events a list is shown  
 Then the default event number will be 32
 
 #### SCENARIO 2: USER CAN CHANGE THE NUMBER OF EVENTS THEY WANT TO SEE
