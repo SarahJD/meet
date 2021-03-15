@@ -20,17 +20,19 @@ class Event extends Component {
   render() {
     return (
       <div className="Event">
-        <div className="summary"></div>
-        <div className="start"></div>
-        <div className="atsummary"></div>
-        <div className="location"></div>
-        <button className="btn-details" onClick={this.handleShowDetails}></button>
-        <div className="details"> 
-          <div className="about-header"></div>
-          <a href="#" className="calendar-link" />
-          <div className="description"></div>
+        <section className="overview">
+          <h2 className="summary"></h2>
+          <p className="start"></p>
+          <p className="atsummary"></p>
+          <p className="location"></p>
+          <button className="btn-details" onClick={this.handleShowDetails}></button>
+        </section>
+        <section className="details"> 
+          <h3 className="about-header"></h3>
+          <p className="htmlLink"></p>
+          <p className="description"></p>
           <button className="btn-hide-details" onClick={this.handleShowDetails}></button>
-        </div>
+        </section>
       </div>
     );
   }
