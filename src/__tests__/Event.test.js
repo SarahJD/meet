@@ -30,7 +30,7 @@ describe('<Event /> component', () => {
     expect(EventWrapper.find('.about-header')).toHaveLength(1);
   });
   test('render link to google-calendar', () => {
-    expect(EventWrapper.find('.calendar-link')).toHaveLength(1);
+    expect(EventWrapper.find('.htmlLink')).toHaveLength(1);
   });
   test('render description for each event', () => {
     expect(EventWrapper.find('.description')).toHaveLength(1);
