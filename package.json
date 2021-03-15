@@ -32,6 +32,16 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "jest": {
+    "collectCoverageFrom": [
+    "<rootDir>/src/*.{js,jsx}",
+    "!**/node_modules/**",
+    "!src/index.js",
+    "!src/service-worker.js",
+    "!src/serviceWorkerRegistration.js",
+    "!src/reportWebVitals.js"
+    ]
+    },
   "eslintConfig": {
     "extends": [
       "react-app",
