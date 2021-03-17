@@ -1,24 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Event from '../Event';
-import { mockData } from '../mock-data';
 
 describe('<Event /> component', () => {
   let EventWrapper;
   beforeAll(() => {
     EventWrapper = shallow(<Event />);
   });
-  test('render title/summary of each event', () => {
-    expect(EventWrapper.find('.summary')).toHaveLength(1);
+  test('render event element', () => {
+    expect(EventWrapper.find('.event')).toHaveLength(1);
   });
-  test('render start time of each event', () => {
-    expect(EventWrapper.find('.start')).toHaveLength(1);
-  });
-  test('render @summary of each event', () => {
-    expect(EventWrapper.find('.atsummary')).toHaveLength(1);
-  });
-  test('render location of each event', () => {
-    expect(EventWrapper.find('.location')).toHaveLength(1);
+  test('render overview-section of each event', () => {
+    expect(EventWrapper.find('.overview')).toHaveLength(1);
   });
   test('render show-details-button of each event', () => {
     expect(EventWrapper.find('.btn-details')).toHaveLength(1);
