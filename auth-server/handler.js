@@ -35,7 +35,7 @@ const oAuth2Client = new google.auth.OAuth2(
  * as a URL parameter.
  *
  */
-module.exports.getAuthURL = async () => {
+module.exports.getAuthURL = async (event, context, callback) => {
   /**
    *
    * Scopes array passed to the `scope` option. Any scopes passed must be enabled in the
@@ -48,16 +48,17 @@ module.exports.getAuthURL = async () => {
     scope: SCOPES,
   });
 
-  return {
-    statusCode: 200,
-    headers: {
+  const response = {
+    "statusCode": 200,
+    "headers": {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
     },
-    body: JSON.stringify({
+    "body": JSON.stringify({
       authUrl: authUrl,
     }),
   };
+  callback(null, response);
 };
 
 /** Getting an Access Token */
