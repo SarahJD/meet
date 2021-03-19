@@ -1,5 +1,9 @@
 const { google } = require("googleapis");
 const calendar = google.calendar("v3");
+// const middy = require('middy');
+// const { cors } = require('middy/middlewares');
+
+
 /**
  * SCOPES allows you to set access levels; this is set to readonly for now because you don't have access rights to
  * update the calendar yourself. For more info, check out the SCOPES documentation at this link: https://developers.google.com/identity/protocols/oauth2/scopes
@@ -63,7 +67,7 @@ module.exports.getAuthURL = async (event, context, callback) => {
 
 /** Getting an Access Token */
 
-module.exports.getAccessToken = async (event) => {
+module.exports.getAccessToken = async (event, context, callback) => {
   // Create a new OAuth2Client
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -107,7 +111,7 @@ module.exports.getAccessToken = async (event) => {
 
 /** Pass Access Token to Google Calendar API and get the Calendar Events from the "fullstackdev" Google Calendar */
 
-module.exports.getCalendarEvents = async (event) => {
+module.exports.getCalendarEvents = async (event, context, callback) => {
 
   // Create a new OAuth2Client
   const oAuth2Client = new google.auth.OAuth2(
@@ -144,8 +148,11 @@ module.exports.getCalendarEvents = async (event) => {
       return {
         statusCode: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': true,
+          'X-Requested-With': '*',
+					'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with',
+					'Access-Control-Allow-Origin': '*'
+          // 'Access-Control-Allow-Origin': '*',
+          // 'Access-Control-Allow-Credentials': true,
         },
         body: JSON.stringify({
           events: results.data.items
