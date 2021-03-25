@@ -21,16 +21,16 @@ const checkToken = async (accessToken) => {
 export const getEvents = async () => {
   NProgress.start();
 
-  if(window.location.href.startsWith('http://localhost')) {
-    return mockData;
-  }
+  // if(window.location.href.startsWith('http://localhost')) {
+  //   return mockData;
+  // }
 
   const token = await getAccessToken();
 
   if(token) {
     removeQuery();
     const url = 'https://1ho8gdafy6.execute-api.eu-central-1.amazonaws.com/dev/api/get-events' + '/' + token;
-    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
     const result = await axios.get(url);
     if (result.data) {
       var locations = extractLocations(result.data.events);
@@ -79,7 +79,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const { access_token } = await fetch(
-    'https://1ho8gdafy6.execute-api.eu-central-1.amazonaws.com/dev/api/token' +'/' + encodeCode
+    'https://1ho8gdafy6.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode
   )
     .then((res) => {
       return res.json();
