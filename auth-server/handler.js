@@ -23,7 +23,7 @@ const credentials = {
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
   redirect_uris: ["https://sarahjd.github.io/meet/"],
-  javascript_origins: ["https://sarahjd.github.io", "http://localhost:3000"]
+  javascript_origins: ["https://SarahJD.github.io", "http://localhost:8080"]
 };
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
 const oAuth2Client = new google.auth.OAuth2(
@@ -56,14 +56,13 @@ module.exports.getAuthURL = async (event, context, callback) => {
     "statusCode": 200,
     "headers": {
       'Access-Control-Allow-Origin': '*',
-      // 'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Credentials': true,
     },
     "body": JSON.stringify({
       authUrl: authUrl,
     }),
   };
-  return response;
-  // callback(null, response);
+  callback(null, response);
 };
 
 /** Getting an Access Token */
@@ -104,13 +103,6 @@ module.exports.getAccessToken = async (event, context, callback) => {
       // Handle error
       console.error(err);
       return {
-        headers: {
-          'X-Requested-With': '*',
-					'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with',
-					'Access-Control-Allow-Origin': '*'
-          // 'Access-Control-Allow-Origin': '*',
-          // 'Access-Control-Allow-Credentials': true,
-        },
         statusCode: 500,
         body: JSON.stringify(err),
       };
@@ -129,7 +121,7 @@ module.exports.getCalendarEvents = async (event, context, callback) => {
   );
 
   // Get the access token
-  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
+  const access_token = decodeURIComponent(`${event.pathParameters.code}`);
 
   // Set the access token as credentials in OAuth2Client
   oAuth2Client.setCredentials({ access_token });
@@ -151,7 +143,7 @@ module.exports.getCalendarEvents = async (event, context, callback) => {
           resolve(response);
         }
       }
-    )})
+    )
     .then ((results) => {
       return {
         statusCode: 200,
@@ -170,16 +162,9 @@ module.exports.getCalendarEvents = async (event, context, callback) => {
     .catch ((err) => {
       console.error(err);
       return {
-        headers: {
-          'X-Requested-With': '*',
-					'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with',
-					'Access-Control-Allow-Origin': '*'
-          // 'Access-Control-Allow-Origin': '*',
-          // 'Access-Control-Allow-Credentials': true,
-        },
         statusCode: 500,
         body: JSON.stringify(err),
       };
     });
-  // };
+  });
 };
