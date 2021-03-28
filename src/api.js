@@ -33,7 +33,8 @@ export const getEvents = async () => {
     // axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
     const result = await axios.get(url, {
       headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type':  'application/json'
       }
     });
     if (result.data) {
