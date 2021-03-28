@@ -30,8 +30,12 @@ export const getEvents = async () => {
   if(token) {
     removeQuery();
     const url = 'https://1ho8gdafy6.execute-api.eu-central-1.amazonaws.com/dev/api/get-events' + '/' + token;
-    axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
-    const result = await axios.get(url);
+    // axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
+    const result = await axios.get(url, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
     if (result.data) {
       var locations = extractLocations(result.data.events);
       localStorage.setItem('lastEvents', JSON.stringify(result.data));
